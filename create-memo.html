@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lange="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h2>새 글 작성</h2>
+        <div>
+            제목 : <input type="text" id="title" style="width:200px;">
+            <button id="create">등록</button>
+        </div>
+
+        <div style="margin-top:1%;">
+            <textarea id='form' style="width:400px;height:400px;"></textarea>
+        </div>
+    </body>
+</html>
+<script>
+    var createBtn = document.getElementById("create");
+
+    createBtn.addEventListener('click', function() {
+        var title = document.getElementById('title').value;
+        var form = document.getElementById('form').value;
+
+        fetch("/board", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 'title': title, 'form': form }),
+        })
+        .then((result) => {return result.text();})
+        .then((data) => {
+            if(data == 'success') {
+                opener.parent.setList();
+            }
+        });
+    });
+</script>

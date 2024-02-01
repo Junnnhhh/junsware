@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UFT-8">
+    </head>
+    <body>
+        <h2>Node.js</h2>
+        
+        <div>
+            <button id="createBtn">글쓰기</button>
+        </div>
+        
+        <div style="margin-top:1%;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>등록일자</th>
+                    </tr>
+                </thead>
+                <tbody id="memo_list">
+                    
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
+<script>
+    function setList() {
+        var tbl = document.getElementById('memo_list');
+
+        fetch("/memo", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then((res) => { return res.json();})
+        .then((data) => {
+            tbl.replaceChildren()
+
+            for(var i=0; i<data.length; i++) {
+                var obj = data[i];
+
+                var tr = document.createElement('tr');
+            
+                var td_seq = document.createElement('td');
+                var td_title = document.createElement('td');
+                var td_registerdate = document.createElement('td');
+                
+                td_seq.textContent = obj.seq;
+                
+                td_title.textContent = obj.title;
+                td_title.setAttribute('name', 'title');
+                td_title.setAttribute('value', obj.seq);
+
+                td_registerdate.textContent = obj.registerdate;
+
+                tr.appendChild(td_seq);
+                tr.appendChild(td_title);
+
+                tr.appendChild(td_registerdate);
+
+                tbl.appendChild(tr);
+            };
+        });
+    }
+
+    function addEvent() {
+        var createBtn = document.getElementById('createBtn');
+
+        createBtn.addEventListener('click', function() {
+            window.open('/create-memo', '', 'width=420, height=550, top=150, left=300');
+        });
+
+        var titleBtn = document.getElementsByName('title');
+        console.log(titleBtn);
+    }
+    
+    setList();
+    addEvent();
+</script>
