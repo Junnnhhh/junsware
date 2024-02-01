@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h2><%=title %></h2>
+        <p><%=body %></p>
+        <div style="margin-top:10%;">
+            <button id="delete" value=<%=seq %>>삭제</button>
+        </div>
+    </body>
+</html>
+<script>
+    var deleteBtn = document.getElementById('delete');
+    var seq = deleteBtn.getAttribute('value');
+
+    deleteBtn.addEventListener('click', function() {
+        if(confirm('삭제하시겠습니까?')) {
+            fetch('/memo/' + seq, {
+                method: 'DELETE',
+            })
+            .then((res) => (res.text()))
+            .then((data) => {
+                opener.parent.setList();
+                close();
+            });
+        }
+    });
+</script>

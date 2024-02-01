@@ -63,7 +63,15 @@
                 tr.appendChild(td_registerdate);
 
                 tbl.appendChild(tr);
-            };
+            }
+
+            var titleBtn = document.getElementsByName('title');
+            
+            for(td of titleBtn) {
+                td.addEventListener('click', function(e) {
+                    window.open('/memo/'+ e.target.getAttribute('value'), '', 'width=420, height=550, top=150, left=300');
+                });
+            }
         });
     }
 
@@ -71,11 +79,10 @@
         var createBtn = document.getElementById('createBtn');
 
         createBtn.addEventListener('click', function() {
-            window.open('/create-memo', '', 'width=420, height=550, top=150, left=300');
+            window.open('/memo/create', '', 'width=420, height=550, top=150, left=300');
         });
 
-        var titleBtn = document.getElementsByName('title');
-        console.log(titleBtn);
+       
     }
     
     setList();
