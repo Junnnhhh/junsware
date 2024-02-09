@@ -13,7 +13,8 @@ app.use('/memo', memoRouter);
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    res.render(__dirname + '/memo/ejs' + '/memo_list.ejs');
+    var rows = [];
+    res.render(__dirname + '/memo/ejs' + '/memo_list.ejs', {rows});
 });
 
 app.set('port', process.env.PORT || 3000);

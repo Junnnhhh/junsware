@@ -2,89 +2,53 @@
 <html lang="ko">
     <head>
         <meta charset="UFT-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h2>Node.js</h2>
-        
         <div>
-            <button id="createBtn">글쓰기</button>
+            <h2>Memo <button id="createBtn" type="button" class="btn btn-secondary">글쓰기</button></h2>
         </div>
         
-        <div style="margin-top:1%;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>등록일자</th>
-                    </tr>
-                </thead>
-                <tbody id="memo_list">
-                    
-                </tbody>
-            </table>
-        </div>
+        <% if(rows != undefined) { %>
+        <div style="padding:3%;">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <% for(let row of rows){ %>
+                <div class="col">
+                    <div class="card" name="memo" value=<%=row.seq %>>
+                        <div class="card-body">
+                            <h5 class="card-title"><%=row.title %></h5>
+                            <p class="card-text"><%=row.body %></p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>   
+          </div>
+          <% } %>
     </body>
 </html>
 <script>
-    function setList() {
-        var tbl = document.getElementById('memo_list');
-
-        fetch("/memo", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        .then((res) => { return res.json();})
-        .then((data) => {
-            tbl.replaceChildren()
-
-            for(var i=0; i<data.length; i++) {
-                var obj = data[i];
-
-                var tr = document.createElement('tr');
-            
-                var td_seq = document.createElement('td');
-                var td_title = document.createElement('td');
-                var td_registerdate = document.createElement('td');
-                
-                td_seq.textContent = obj.seq;
-                
-                td_title.textContent = obj.title;
-                td_title.setAttribute('name', 'title');
-                td_title.setAttribute('value', obj.seq);
-
-                td_registerdate.textContent = obj.registerdate;
-
-                tr.appendChild(td_seq);
-                tr.appendChild(td_title);
-
-                tr.appendChild(td_registerdate);
-
-                tbl.appendChild(tr);
-            }
-
-            var titleBtn = document.getElementsByName('title');
-            
-            for(td of titleBtn) {
-                td.addEventListener('click', function(e) {
-                    window.open('/memo/'+ e.target.getAttribute('value'), '', 'width=420, height=550, top=150, left=300');
-                });
-            }
+    function getMemo() {
+        $("[name=memo]").on('click', function() {
+            var id = $(this).attr('value');
+            window.open('/memo/' + id, '', 'width=420, height=550, top=150, left=300');
         });
     }
 
-    function addEvent() {
+    function createMemo() {
         var createBtn = document.getElementById('createBtn');
 
         createBtn.addEventListener('click', function() {
             window.open('/memo/create', '', 'width=420, height=550, top=150, left=300');
         });
-
-       
     }
     
-    setList();
+    function addEvent() {
+        getMemo();
+        createMemo();
+    }
+
     addEvent();
 </script>

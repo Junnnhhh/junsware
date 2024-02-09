@@ -3,6 +3,14 @@ const pool = require('../db_connection.js');
 const express = require('express');
 const router = express.Router();
 
+router.get('/list', async (req, res) => {
+    const conn = await pool.getConnection();
+
+    const rows = await conn.query('SELECT * FROM junsware.memo');
+
+    res.render(__dirname + '/ejs/memo_list.ejs', {rows});
+});
+
 router.get('/', async (req, res) => {
     const conn = await pool.getConnection();
 
