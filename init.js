@@ -1,5 +1,4 @@
 const express = require('express');
-const ejs = require('ejs');
 
 const memoRouter = require('./memo/memo.js');
 
@@ -13,8 +12,7 @@ app.use('/memo', memoRouter);
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    var rows = [];
-    res.render(__dirname + '/memo/ejs' + '/memo_list.ejs', {rows});
+    res.redirect('/memo/list');
 });
 
 app.set('port', process.env.PORT || 3000);

@@ -7,10 +7,16 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h2><%=title %></h2>
-        <p><%=body %></p>
-        <div style="margin-top:10%;">
-            <button id="delete" value=<%=seq %>>삭제</button>
+        <div class="d-flex flex-column mb-3">
+            <div class="p-2">
+                <h2><%=title %></h2>
+            </div>
+            <div class="p-2">
+                <p><%=body %></p>
+            </div>
+            <div class="p-2">
+                <button id="delete" value=<%=seq %> type="button" class="btn btn-secondary">삭제</button>
+            </div>
         </div>
     </body>
 </html>

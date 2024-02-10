@@ -1,9 +1,12 @@
 const maria = require('mariadb');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const pool = maria.createPool({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'root',
+    host: process.env.DB_HOST,
+    user: process.env.DB_ID,
+    password: process.env.DB_PW,
     connectionLimit: 5,
     dateStrings: true,
 });
