@@ -8,14 +8,16 @@
     </head>
     <body>
         <div class="d-flex flex-column mb-3">
-            <div class="p-2">
-                <h2><%=title %></h2>
+            <div class="p-2 border-bottom">
+                <h2 class="float-start"><%=title %></h2>
+
+                <span class="float-end">
+                    <button id="update" value=<%=seq %> type="button"  class="btn btn-secondary">수정</button>
+                    <button id="delete" value=<%=seq %> type="button"  class="btn btn-secondary">삭제</button>
+                </span>
             </div>
             <div class="p-2">
-                <p><%=body %></p>
-            </div>
-            <div class="p-2">
-                <button id="delete" value=<%=seq %> type="button" class="btn btn-secondary">삭제</button>
+                <p style="white-space: pre-line;"><%=body %></p>
             </div>
         </div>
     </body>
@@ -35,5 +37,9 @@
                 close();
             });
         }
+    });
+
+    $("#update").on('click', function() {
+
     });
 </script>

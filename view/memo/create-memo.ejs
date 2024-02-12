@@ -9,15 +9,18 @@
     
     <body>
         <div class="d-flex flex-column mb-3">
-            <div class="p-2"><h2>새 글 작성</h2></div>
+            <div class="p-2 border"><h2>새 글 작성</h2></div>
             <div class="p-2">
-                <div>
-                    제목 : <input type="text" id="title" style="width:200px;">
-                    <button id="create" type="button" class="btn btn-secondary">등록</button>
+                <div class="mb-3">
+                    <label for="title" class="form-label">제목</label>
+                    <input type="text" class="form-control" id="title"/>
                 </div>
             </div>
+            <div class="p-2 border">
+                <textarea id='form' class="form-control" rows="10"></textarea>
+            </div>
             <div class="p-2">
-                <textarea id='form' style="width:400px;height:400px;"></textarea>
+                <button id="create" type="button" class="btn btn-secondary float-end">등록</button>
             </div>
         </div>
     </body>

@@ -1,6 +1,7 @@
 const express = require('express');
+const path = require('path');
 
-const memoRouter = require('./memo/memo.js');
+const memoRouter = require('./module/memo/memo.js');
 
 const app = express();
 

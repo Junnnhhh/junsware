@@ -7,26 +7,34 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div>
-            <h2>Memo <button id="createBtn" type="button" class="btn btn-secondary">글쓰기</button></h2>
-        </div>
-        
-        <% if(rows != undefined) { %>
-        <div style="padding:3%;">
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-                <% for(let row of rows){ %>
-                <div class="col">
-                    <div class="card" name="memo" value=<%=row.seq %>>
-                        <div class="card-body">
-                            <h5 class="card-title"><%=row.title %></h5>
-                            <p class="card-text"><%=row.body %></p>
-                        </div>
+        <div class="d-flex">
+            <%- include('../common/sidebar', {}) %>
+            <div class="p-2 flex-fill">
+                <nav class="navbar bg-body-tertiary">
+                    <div class="container-fluid">
+                        <a class="navbar-brand">Memo</a>
+                        <button id="createBtn" type="button" class="btn btn-secondary">메모생성</button>
                     </div>
-                </div>
-                <% } %>
-            </div>   
-          </div>
-          <% } %>
+                </nav>
+                
+                <% if(rows != undefined) { %>
+                <div style="padding:3%;">
+                    <div class="row row-cols-1 row-cols-md-4 g-4">
+                        <% for(let row of rows){ %>
+                        <div class="col">
+                            <div class="card" name="memo" value=<%=row.seq %>>
+                                <div class="card-body">
+                                    <h5 class="card-title"><%=row.title %></h5>
+                                    <p class="card-text"><%=row.body %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>   
+                  </div>
+                  <% } %>
+            </div>
+        </div>
     </body>
 </html>
 <script>
