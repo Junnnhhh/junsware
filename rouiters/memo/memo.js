@@ -11,7 +11,7 @@ router.get('/list', async (req, res) => {
 
     path.resolve
 
-    res.render(path.resolve(__dirname, '../../view/memo/memo_list.ejs'), {rows});
+    res.render(path.resolve(__dirname, '../../view/memo/memo_list'), {rows});
 });
 
 router.get('/', async (req, res) => {
