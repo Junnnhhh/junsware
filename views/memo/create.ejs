@@ -11,9 +11,13 @@
     
     <body>
         <div class="d-flex">
-            <%- include('../common/sidebar', {}) %>
+            <%- include('../common/sidebar', {'click': 'memo'}) %>
             <div class="p-2 flex-fill">
                 <%- include('../common/topbar') %>
+
+                <div class="mt-2">
+                    <input class="form-control" id="title" type="text" placeholder="제목을 입력하세요.">
+                </div>
 
                 <div class="mt-2" id="editor">
 
@@ -40,7 +44,7 @@
         fetch('/memo/create', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({'markdown': markdown}),
+            body: JSON.stringify({'title': $("#title").val(), 'body': markdown}),
         }).then(data => {
             alert('저장되었습니다.');
             window.location.href = '/memo/list';

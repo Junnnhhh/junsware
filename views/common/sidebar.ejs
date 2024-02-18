@@ -5,10 +5,17 @@
 
     <ul class="nav nav-pills flex-column mt-2 p-3">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link <% if(click == 'home') { %> active <% } %>" href="/home">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Memo</a>
+            <a class="nav-link <% if(click == 'memo') { %> active <% } %>" href="/memo/list">Memo</a>
         </li>
     </ul>
 </div>
+<script>
+    $(".nav-link").on('click', function() {
+        $(".nav-link").removeClass('active');
+
+        $(this).addClass('active');
+    });
+</script>

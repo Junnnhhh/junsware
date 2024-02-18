@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 
 const loginRouter = require('./routers/user/login.js');
+const homeRouter = require('./routers/home/main.js');
 const memoRouter = require('./routers/memo/memo.js');
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/login', loginRouter);
+app.use('/home', homeRouter);
 app.use('/memo', memoRouter);
 
 app.set('view engine', 'ejs');

@@ -11,55 +11,44 @@
     
     <body>
         <div class="d-flex">
-            <%- include('../common/sidebar', {'click': 'memo'}) %>
+            <%- include('../common/sidebar', {'click':'memo'}) %>
             <div class="p-2 flex-fill">
                 <%- include('../common/topbar') %>
-                
+
                 <div class="mt-2">
-                    <input class="form-control" id="title" type="text" value="<%= title %>" readonly>
+                    <input class="form-control" id="title" type="text" value="<%= title %>">
                 </div>
 
-                <div class="mt-2" id="viewer">
+                <div class="mt-2" id="editor">
 
                 </div>
             </div>
+            <input type="hidden" id="body" value="<%= body %>">
         </div>
-        <input type="hidden" id="body" value="<%= body %>"/>
     </body>
 </html>
 <script>
-    const viewer = toastui.Editor.factory({
-        el: document.querySelector("#viewer"),
-        viewer: true,
-        initialValue: $("#body").val()
+    const Editor = toastui.Editor;
+
+    const editor = new Editor({
+        el: document.querySelector('#editor'),
+        height: '70%',
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
     });
 
-    var deleteBtn = document.getElementById('delete');
-    var seq = deleteBtn.getAttribute('value');
+    editor.setMarkdown($("#body").val());
 
-    deleteBtn.addEventListener('click', function() {
-        if(confirm('삭제하시겠습니까?')) {
-            fetch('/memo/' + seq, {
-                method: 'DELETE',
-            })
-            .then(res => {
-                alert('삭제되었습니다.');
-                window.location.href = '/memo/list';
-            });
-        }
-    });
+    $("#update").on("click", function() {
+        var obj = {'title': $("#title").val(), 'body': editor.getMarkdown()};
 
-    var updateBtn = document.getElementById('update');
-
-    updateBtn.addEventListener('click', function() {
-        var obj = {seq: "<%= seq %>", title: "<%= title %>", body: $("#body").val(), page: 'update'};
-
-        fetch('/memo/update', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+        fetch('/memo/' + $(this).val(), {
+            method: 'PUT',
+            headers: {'Content-type': 'application/json'},
             body: JSON.stringify(obj),
         }).then((data) => {
-
+            alert('수정되었습니다.');
+            window.location.href = '/memo/list';
         });
     });
 </script>
