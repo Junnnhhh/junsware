@@ -20,8 +20,8 @@ router.post('/create', async (req, res) => {
     const conn = await pool.getConnection();
     
     const add = await conn.query(
-        "INSERT INTO junsware.memo (title, body)"
-        + " value (?, ?)", 
+        "INSERT INTO junsware.memo (title, body, registdate, register)"
+        + " value (?, ?, now(), 'junhuyk')", 
         [req.body.title, req.body.body]);
     
     res.send("success");
