@@ -10,26 +10,29 @@
         <div class="d-flex">
             <%- include('../common/sidebar', {}) %>
             <div class="p-2 flex-fill">
-                <nav class="navbar bg-body-tertiary">
-                    <div class="container-fluid">
-                        <a class="navbar-brand">Memo</a>
-                        <button id="createBtn" type="button" class="btn btn-secondary">메모생성</button>
-                    </div>
-                </nav>
+                <%- include('../common/topbar') %>
                 
                 <% if(rows != undefined) { %>
                 <div style="padding:3%;">
                     <div class="row row-cols-1 row-cols-md-4 g-4">
-                        <% for(let row of rows){ %>
-                        <div class="col">
-                            <div class="card" name="memo" value=<%=row.seq %>>
-                                <div class="card-body">
-                                    <h5 class="card-title"><%=row.title %></h5>
-                                    <p class="card-text"><%=row.body %></p>
-                                </div>
-                            </div>
-                        </div>
-                        <% } %>
+                        <table class="table">
+                            <thead>
+                                <th scope="col">번호</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">등록일</th>
+                            </thead>
+                            <tbody>
+                            <% for(let row of rows){ %>
+                                <tr>
+                                    <th scope="row"><%= row.seq %></th>
+                                    <td name="memo" value="<%= row.seq %>"><%= row.title%></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
                     </div>   
                   </div>
                   <% } %>
@@ -41,7 +44,8 @@
     function getMemo() {
         $("[name=memo]").on('click', function() {
             var id = $(this).attr('value');
-            window.open('/memo/' + id, '', 'width=420, height=550, top=150, left=300');
+            //window.open('/memo/' + id, '', 'width=420, height=550, top=150, left=300');
+            window.location.href = '/memo/' + id;
         });
     }
 
@@ -49,7 +53,8 @@
         var createBtn = document.getElementById('createBtn');
 
         createBtn.addEventListener('click', function() {
-            window.open('/memo/create', '', 'width=420, height=550, top=150, left=300');
+            //window.open('/memo/create', '', 'width=420, height=550, top=150, left=300');
+            window.location.href = '/memo/create'
         });
     }
     

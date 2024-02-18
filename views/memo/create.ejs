@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lange="ko">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    </head>
+    
+    <body>
+        <div class="d-flex">
+            <%- include('../common/sidebar', {}) %>
+            <div class="p-2 flex-fill">
+                <%- include('../common/topbar') %>
+
+                <div class="mt-2" id="editor">
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    const Editor = toastui.Editor;
+
+    const editor = new Editor({
+        el: document.querySelector('#editor'),
+        height: '70%',
+        initialEditType: 'markdown',
+        previewStyle: 'vertical'
+    });
+
+    const saveBtn = document.getElementById('saveBtn');
+
+    saveBtn.addEventListener('click', function() {
+        const markdown = editor.getMarkdown();
+
+        fetch('/memo/create', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({'markdown': markdown}),
+        }).then(data => {
+            alert('저장되었습니다.');
+            window.location.href = '/memo/list';
+        });
+    });
+</script>

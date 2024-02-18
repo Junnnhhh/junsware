@@ -12,7 +12,6 @@ app.use(express.urlencoded({ extended: false}));
 app.use(cookieParser());
 
 app.use(function(req, res, next) {
-    
     const originUrl = req.originalUrl;
 
     if(originUrl != '/login' && req.cookies['login'] == undefined) {

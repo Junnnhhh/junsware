@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lange="ko">
     <head>
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     </head>
+    
     <body>
-        <div class="d-flex flex-column mb-3">
-            <div class="p-2 border-bottom">
-                <h2 class="float-start"><%=title %></h2>
+        <div class="d-flex">
+            <%- include('../common/sidebar', {}) %>
+            <div class="p-2 flex-fill">
+                <%- include('../common/topbar') %>
 
-                <span class="float-end">
-                    <button id="update" value=<%=seq %> type="button"  class="btn btn-secondary">수정</button>
-                    <button id="delete" value=<%=seq %> type="button"  class="btn btn-secondary">삭제</button>
-                </span>
-            </div>
-            <div class="p-2">
-                <p style="white-space: pre-line;"><%=body %></p>
+                <div class="mt-2" id="viewer">
+
+                </div>
             </div>
         </div>
+        <input type="hidden" id="markdown" value="<%= body %>"/>
     </body>
 </html>
 <script>
+    const viewer = toastui.Editor.factory({
+        el: document.querySelector("#viewer"),
+        viewer: true,
+        initialValue: $("#markdown").val()
+    });
+
     var deleteBtn = document.getElementById('delete');
     var seq = deleteBtn.getAttribute('value');
 
@@ -31,10 +38,9 @@
             fetch('/memo/' + seq, {
                 method: 'DELETE',
             })
-            .then((res) => (res.text()))
-            .then((data) => {
-                opener.parent.location.reload();
-                close();
+            .then(res => {
+                alert('삭제되었습니다.');
+                window.location.href = '/memo/list';
             });
         }
     });

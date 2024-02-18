@@ -9,9 +9,7 @@ router.get('/list', async (req, res) => {
 
     const rows = await conn.query('SELECT * FROM junsware.memo');
 
-    path.resolve
-
-    res.render(path.resolve(__dirname, '../../view/memo/memo_list'), {rows});
+    res.render(path.resolve(__dirname, '../../views/memo/list'), {rows, page:'list'});
 });
 
 router.get('/', async (req, res) => {
@@ -38,7 +36,22 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/create', (req, res) => {
-    res.render(path.resolve(__dirname, '../../view/memo/create-memo'));
+    res.render(path.resolve(__dirname, '../../views/memo/create'), {page: 'create'});
+});
+
+router.post('/create', async (req, res) => {
+    console.log("test");
+
+    const conn = await pool.getConnection();
+    
+    const add = await conn.query(
+        "INSERT INTO junsware.memo (title, body)"
+        + " value (?, ?)", 
+        ["마크다운 테스트입니다.", req.body.markdown]);
+    
+    res.send("success");
+
+    conn.release();
 });
 
 router.get('/:id', async (req, res) => {
@@ -50,7 +63,9 @@ router.get('/:id', async (req, res) => {
         'SELECT seq, title, body FROM junsware.memo WHERE seq = ?'
     , [id]);
 
-    res.render(path.resolve(__dirname, '../../view/memo/memo'), data[0]);
+    data[0]['page'] = 'memo';
+
+    res.render(path.resolve(__dirname, '../../views/memo/content'), data[0]);
 
     conn.release();
 });
