@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
 
+const root = path.resolve(__dirname, '../..');
+
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render(path.resolve(__dirname, '../../views/user/login'));
+    res.render(root + '/views/user/login');
 });
 
 router.post('/', (req, res) => {

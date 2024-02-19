@@ -8,9 +8,9 @@
     </head>
     <body>
         <div class="d-flex">
-            <%- include('../common/sidebar', {'click': 'memo'}) %>
+            <%- include('./sidebar') %>
             <div class="p-2 flex-fill">
-                <%- include('../common/topbar') %>
+                <%- include('./topbar', {'mode': 'list'}) %>
                 
                 <% if(rows != undefined) { %>
                 <div style="padding:3%;">

@@ -59,7 +59,7 @@
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"email": email, "pw": pw})
         }).then((data) => {
-            window.location.href = "/memo/list";
+            window.location.href = "/home";
         }).catch((err) => {
             alert("exception!!");
         });

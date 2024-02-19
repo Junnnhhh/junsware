@@ -1,13 +1,13 @@
 <nav class="navbar bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand">Memo</a>
-        <% if(page == 'list') { %>
+        <% if(mode == 'list') { %>
         <button id="createBtn" type="button" class="btn btn-primary">생성</button>
         <% } %>
-        <% if(page == 'create') { %>
+        <% if(mode == 'create') { %>
         <button id="saveBtn" type="button" class="btn btn-primary">저장</button>
         <% } %>
-        <% if(page == 'memo') { %>
+        <% if(mode == 'detail') { %>
         <form action="/memo/update" method="post" class="float-end">
             <input type="hidden" name="seq" value="<%= seq %>"/>
             <input type="hidden" name="title" value="<%= title %>"/>
@@ -17,7 +17,7 @@
             <button id="delete" value=<%=seq %> type="button" class="btn btn-primary">삭제</button>
         </form>
         <% } %>
-        <% if(page == 'update') { %>
+        <% if(mode == 'update') { %>
             <button id="update" value="<%= seq %>" type="button" class="btn btn-primary">수정</button>
         <% } %>
     </div>
